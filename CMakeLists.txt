@@ -1,5 +1,5 @@
 # 指定CMake的最低版本要求 (3.10是一个现代且兼容性好的版本)
-cmake_minimum_required(VERSION 3.10)
+cmake_minimum_required(VERSION 2.8)
 
 # 定义项目名称
 # LANGUAGES CXX 表示这是一个C++项目
