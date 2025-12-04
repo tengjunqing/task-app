@@ -122,32 +122,37 @@ int main() {
     SimpleSystemMonitor monitor;
     
     std::cout << "=== Linux系统资源监控程序 ===" << std::endl;
-    std::cout << "正在收集系统信息..." << std::endl;
+    std::cout << "每5秒更新一次系统信息，按 Ctrl+C 退出。" << std::endl;
     std::cout << std::endl;
     
-    try {
-        // 获取并显示CPU 15分钟平均负载
-        double cpuLoad15 = monitor.getCPULoad15();
-        std::cout << "📊 CPU 15分钟平均负载: " << cpuLoad15 << std::endl;
+    while (true) {
+        try {
+            // 获取并显示CPU 15分钟平均负载
+            double cpuLoad15 = monitor.getCPULoad15();
+            std::cout << "📊 CPU 15分钟平均负载: " << cpuLoad15 << std::endl;
+            
+            // 获取并显示内存占用率
+            double memUsage = monitor.getMemoryUsage();
+            std::cout << "💾 内存占用率: " << memUsage << "%" << std::endl;
+            
+            // 获取并显示存储占用率
+            double storageUsage = monitor.getStorageUsage();
+            std::cout << "💽 存储占用率: " << storageUsage << "%" << std::endl;
+            
+            // 可选：显示实时CPU使用率
+            double currentCPU = monitor.getCurrentCPUUsage();
+            std::cout << "⚡ 实时CPU使用率: " << currentCPU << "%" << std::endl;
+            
+            std::cout << std::endl;
+            std::cout << "✅ 监控信息获取完成！" << std::endl;
+            std::cout << "----------------------------------------" << std::endl;
+            
+        } catch (const std::exception& e) {
+            std::cerr << "❌ 错误: " << e.what() << std::endl;
+            return 1;
+        }
         
-        // 获取并显示内存占用率
-        double memUsage = monitor.getMemoryUsage();
-        std::cout << "💾 内存占用率: " << memUsage << "%" << std::endl;
-        
-        // 获取并显示存储占用率
-        double storageUsage = monitor.getStorageUsage();
-        std::cout << "💽 存储占用率: " << storageUsage << "%" << std::endl;
-        
-        // 可选：显示实时CPU使用率
-        double currentCPU = monitor.getCurrentCPUUsage();
-        std::cout << "⚡ 实时CPU使用率: " << currentCPU << "%" << std::endl;
-        
-        std::cout << std::endl;
-        std::cout << "✅ 监控信息获取完成！" << std::endl;
-        
-    } catch (const std::exception& e) {
-        std::cerr << "❌ 错误: " << e.what() << std::endl;
-        return 1;
+        sleep(5);
     }
     
     return 0;
